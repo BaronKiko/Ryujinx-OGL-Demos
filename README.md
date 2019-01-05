@@ -16,3 +16,6 @@ Draws 4 vertical lines from single draw points call
 
 # Uniforms
 Draws a green triangle, colour passed with uniforms
+
+# Constant Attributes
+Triangle that oscillates letf to right, offset set by cosntant attribute
