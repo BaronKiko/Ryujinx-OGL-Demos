@@ -263,7 +263,6 @@ GLuint createShader(GLenum type, const GLchar* src) {
 }
 
 
-static GLuint s_program, b_program;
 static GLuint s_vao, s_vbo;
 
 static void sceneInit()
@@ -302,108 +301,6 @@ static void sceneInit()
     GLint posAttrib = glGetAttribLocation(shaderProgram, "pos");
     glEnableVertexAttribArray(posAttrib);
     glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
-    /*GLint vsh = createAndCompileShader(GL_VERTEX_SHADER, vertexShaderSource);
-    GLint fsh = createAndCompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
-    GLint bfsh = createAndCompileShader(GL_FRAGMENT_SHADER, blueFragmentShaderSource);
-    GLint gsh = createAndCompileShader(GL_GEOMETRY_SHADER, geometryShaderSource);
-
-    s_program = glCreateProgram();
-    glAttachShader(s_program, vsh);
-    glAttachShader(s_program, bfsh);
-    glAttachShader(s_program, gsh);
-    glLinkProgram(s_program);
-    glUseProgram(s_program);
-
-    b_program = glCreateProgram();
-    glAttachShader(b_program, vsh);
-    glAttachShader(b_program, fsh);
-    glLinkProgram(b_program);
-    glUseProgram(b_program);
-
-    GLuint vbo;
-    glGenBuffers(1, &vbo);
-
-    /*struct Vertex
-    {
-        float position[3];
-        float color[3];
-    };*/
-
-    /*static const Vertex points[] = {
-        { { -0.5f, -0.5f, 0.0f }, { 1.0f, 0.0f, 0.0f } },
-        { {  0.5f, -0.5f, 0.0f }, { 0.0f, 1.0f, 0.0f } },
-        { {  0.0f,  0.5f, 0.0f }, { 0.0f, 0.0f, 1.0f } },
-    };*/
-
-    /*float points[] = {
-        -0.45f,  0.45f,
-         0.45f,  0.45f,
-         0.45f, -0.45f,
-        -0.45f, -0.45f,
-    };
-
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
-
-    // Create VAO
-    GLuint vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-
-    // Specify layout of point data
-    GLint posAttrib = glGetAttribLocation(s_program, "pos");
-    glEnableVertexAttribArray(posAttrib);
-    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
-
-    float width = 1280 / 2;
-    //glViewportIndexedf(0, 0, 0, width, 720);
-    //glViewportIndexedf(1, width, 0, width, 720);
-
-/*    GLint success;
-    glGetProgramiv(s_program, GL_LINK_STATUS, &success);
-    if (!success)
-    {
-        char buf[512];
-        glGetProgramInfoLog(s_program, sizeof(buf), nullptr, buf);
-        TRACE("Link error: %s", buf);
-    }
-    glDeleteShader(vsh);
-    glDeleteShader(fsh);
-
-    struct Vertex
-    {
-        float position[3];
-        float color[3];
-    };
-
-    static const Vertex vertices[] =
-    {
-        { { -0.5f, -0.5f, 0.0f }, { 1.0f, 0.0f, 0.0f } },
-        { {  0.5f, -0.5f, 0.0f }, { 0.0f, 1.0f, 0.0f } },
-        { {  0.0f,  0.5f, 0.0f }, { 0.0f, 0.0f, 1.0f } },
-    };
-
-    glGenVertexArrays(1, &s_vao);
-    glGenBuffers(1, &s_vbo);
-    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-    glBindVertexArray(s_vao);
-
-    glBindBuffer(GL_ARRAY_BUFFER, s_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
-    glEnableVertexAttribArray(0);
-
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
-    glEnableVertexAttribArray(1);
-
-    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-    // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-    glBindVertexArray(0);*/
 }
 
 static void sceneRender()
@@ -412,40 +309,12 @@ static void sceneRender()
     glClear(GL_COLOR_BUFFER_BIT);
 
     glDrawArrays(GL_POINTS, 0, 4);
-
-    //glEnable(GL_SCISSOR_TEST);
-    //glScissor(10, 20, 30, 40);
-    /*glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    //glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
-
-    glDrawArrays(GL_POINTS, 0, 4);*/
-    //glDisable(GL_SCISSOR_TEST);
-    //glDrawArrays(GL_TRIANGLES, 0, 3);
-
-
-    /*glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    glEnablei(GL_SCISSOR_TEST, 0);
-    glEnablei(GL_SCISSOR_TEST, 1);
-    glScissorIndexed(0, 50, 100, 600, 500);
-    glScissorIndexed(1, 50, 100, 600, 500);
-
-
-    // draw our first triangle
-    glUseProgram(s_program);
-    glBindVertexArray(s_vao); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    glDisablei(GL_SCISSOR_TEST, 0);
-    glDisablei(GL_SCISSOR_TEST, 1);*/
-    //glFlush();
 }
 
 static void sceneExit()
 {
     glDeleteBuffers(1, &s_vbo);
     glDeleteVertexArrays(1, &s_vao);
-    glDeleteProgram(s_program);
 }
 
 int main(int argc, char* argv[])
@@ -463,24 +332,16 @@ int main(int argc, char* argv[])
     // Initialize our scene
     sceneInit();
 
-    bool pressed = false;
-    bool ab = false;
-
     // Main graphics loop
     while (appletMainLoop())
     {
         // Get and process input
         hidScanInput();
-        u32 kDown = hidKeysDown(CONTROLLER_P1_AUTO) & KEY_PLUS;
-        if (kDown && !pressed)
+        u32 kDown = hidKeysDown(CONTROLLER_P1_AUTO);
+        if (kDown & KEY_PLUS)
         {
-            if (ab)
-                glUseProgram(s_program);
-            else
-                glUseProgram(b_program);
-            ab = !ab;
+            break;
         }
-        pressed = kDown;
 
         // Render stuff!
         sceneRender();
