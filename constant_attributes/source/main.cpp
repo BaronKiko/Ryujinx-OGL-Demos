@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <switch.h>
+#include <math.h>
 
 #include <EGL/egl.h>    // EGL library
 #include <EGL/eglext.h> // EGL extensions
@@ -182,22 +183,21 @@ static void setMesaConfig()
 static const char* const vertexShaderSrc  = R"glsl(
     #version 150 core
     in vec2 pos;
+    in vec2 offset;
 
     void main()
     {
-        gl_Position = vec4(pos, 0.0, 1.0);
+        gl_Position = vec4(pos + offset, 0.0, 1.0);
     }
 )glsl";
 
 static const char* const fragmentShaderSrc  = R"glsl(
     #version 330 core
     out vec4 FragColor;
-      
-    uniform vec4 ourColor; // we set this variable in the OpenGL code.
 
     void main()
     {
-        FragColor = ourColor;
+        FragColor = vec4(0.0f, 0.0f, 1.0f, 1.0f);
     } 
 )glsl";
 
@@ -273,10 +273,13 @@ static void sceneInit()
     glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
 }
 
+
+float pos;
+
 static void sceneRender()
 {
-    int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
-    glUniform4f(vertexColorLocation, 0.0f, 1.0f, 0.0f, 1.0f);
+    GLint vertexLoc = glGetAttribLocation(shaderProgram, "offset");
+    glVertexAttrib2f(vertexLoc, sin(pos++ / 20) / 2, 0.0f);
 
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
