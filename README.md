@@ -9,10 +9,10 @@ Precompiled versions on releases.
 What each thing does/tests  
 
 # Template:  
-Just a template to get an app running. Displays a white screen. For new apps you can copy this.
+Just a template to get an app running. Displays a white screen. For new apps you can copy this
 
 # Geometry Shaders
 Draws 4 vertical lines from single draw points call
 
-# Constant Attributes
-Draws a green triangle, colour passed with constant attribute.
+# Uniforms
+Draws a green triangle, colour passed with uniforms
