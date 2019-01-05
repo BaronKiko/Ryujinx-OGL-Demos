@@ -8,3 +8,6 @@ What each thing does/tests
 
 # Template:  
 Just a template to get an app running. Displays a white screen. For new apps you can copy this.
+
+# Geometry Shaders
+Draws 4 vertical lines from single draw points call
