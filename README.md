@@ -19,3 +19,6 @@ Draws a green triangle, colour passed with uniforms
 
 # Constant Attributes
 Triangle that oscillates letf to right, offset set by cosntant attribute
+
+# Cube Maps
+Displays a cube with a different texture for each face using cubemaps
