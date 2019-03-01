@@ -15,7 +15,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "stb_image.h"
+#include "SOIL2.h"
 #include "Top_png.h"
 #include "Bottom_png.h"
 #include "Left_png.h"
@@ -457,34 +457,34 @@ static void sceneInit()
     int width, height, nchan;
     //stbi_set_flip_vertically_on_load(true);
     // Right
-    stbi_uc* img = stbi_load_from_memory((const stbi_uc*)Right_png, Right_png_size, &width, &height, &nchan, 4);
+    unsigned char* img = SOIL_load_image_from_memory(Right_png, Right_png_size, &width, &height, &nchan, 4);
     glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
-    stbi_image_free(img);
+    SOIL_free_image_data(img);
 
     // left
-    img = stbi_load_from_memory((const stbi_uc*)Left_png, Left_png_size, &width, &height, &nchan, 4);
+    img = SOIL_load_image_from_memory(Left_png, Left_png_size, &width, &height, &nchan, 4);
     glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
-    stbi_image_free(img);
+    SOIL_free_image_data(img);
 
     // Top
-    img = stbi_load_from_memory((const stbi_uc*)Top_png, Top_png_size, &width, &height, &nchan, 4);
+    img = SOIL_load_image_from_memory(Top_png, Top_png_size, &width, &height, &nchan, 4);
     glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
-    stbi_image_free(img);
+    SOIL_free_image_data(img);
 
     // Bottom
-    img = stbi_load_from_memory((const stbi_uc*)Bottom_png, Bottom_png_size, &width, &height, &nchan, 4);
+    img = SOIL_load_image_from_memory(Bottom_png, Bottom_png_size, &width, &height, &nchan, 4);
     glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
-    stbi_image_free(img);
+    SOIL_free_image_data(img);
 
     // Back
-    img = stbi_load_from_memory((const stbi_uc*)Back_png, Back_png_size, &width, &height, &nchan, 4);
+    img = SOIL_load_image_from_memory(Back_png, Back_png_size, &width, &height, &nchan, 4);
     glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
-    stbi_image_free(img);
+    SOIL_free_image_data(img);
 
     // Front
-    img = stbi_load_from_memory((const stbi_uc*)Front_png, Front_png_size, &width, &height, &nchan, 4);
+    img = SOIL_load_image_from_memory(Front_png, Front_png_size, &width, &height, &nchan, 4);
     glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
-    stbi_image_free(img);
+    SOIL_free_image_data(img);
 
     // Uniforms
     glUseProgram(s_program);
